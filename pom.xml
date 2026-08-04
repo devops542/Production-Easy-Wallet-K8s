@@ -6,11 +6,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.easywallet</groupId>
-    <artifactId>Production-Easy-Wallet</artifactId>
+    <artifactId>Production-Easy-Wallet-K8s</artifactId>
     <version>1.0.0</version>
     <packaging>war</packaging>
 
-    <name>Production-Easy-Wallet</name>
+    <name>Production-Easy-Wallet-K8s</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,7 +31,7 @@
     </dependencies>
 
     <build>
-        <finalName>Production-Easy-Wallet</finalName>
+        <finalName>Production-Easy-Wallet-K8s</finalName>
 
         <plugins>
 
@@ -49,13 +49,5 @@
 
         </plugins>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <id>nexus</id>
-            <name>Production Easy Wallet Repository</name>
-            <url>http://13.232.227.93:8081/repository/production-easy-wallet/</url>
-        </repository>
-    </distributionManagement>
 
 </project>
