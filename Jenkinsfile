@@ -30,5 +30,20 @@ pipeline {
                 }
             }
         }
+
+        stage('Copy files to Docker Server') {
+            steps {
+                sshagent(credentials: ['docker-server']) {
+                    sh '''
+                    scp -o StrictHostKeyChecking=no Dockerfile \
+                    ec2-user@172.31.37.89:/home/ec2-user/docker-build/
+
+                    scp -o StrictHostKeyChecking=no target/Production-Easy-Wallet-K8s.war \
+                    ec2-user@172.31.37.89:/home/ec2-user/docker-build/target/
+                    '''
+                }
+            }
+        }
+
     }
 }
