@@ -45,16 +45,28 @@ pipeline {
             }
         }
 
-        stage('Build and Deploy Docker Image') {
+        stage('Build, Push and Deploy Docker Image') {
             steps {
                 sshagent(credentials: ['docker-server']) {
                     sh """
                     ssh -o StrictHostKeyChecking=no ec2-user@172.31.37.89 '
                     cd /home/ec2-user/docker-build &&
+
                     docker build -t production-easy-wallet-k8s:1.0 . &&
+
+                    docker tag production-easy-wallet-k8s:1.0 \
+                    13.206.142.41:8082/docker-hosted/production-easy-wallet-k8s:1.0 &&
+
+                    docker push \
+                    13.206.142.41:8082/docker-hosted/production-easy-wallet-k8s:1.0 &&
+
                     docker stop easy-wallet || true &&
                     docker rm easy-wallet || true &&
-                    docker run -d --name easy-wallet -p 9090:8080 production-easy-wallet-k8s:1.0
+
+                    docker run -d \
+                    --name easy-wallet \
+                    -p 9090:8080 \
+                    production-easy-wallet-k8s:1.0
                     '
                     """
                 }
